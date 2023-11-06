@@ -36,5 +36,15 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
     }
+
+    @GetMapping("/incomplete")
+    public List<Task> getIncompleteTasks() {
+        return taskService.getIncompleteTasks();
+    }
+
+    @GetMapping("/complete")
+    public List<Task> getCompleteTasks() {
+        return taskService.getCompleteTasks();
+    }
 }
 

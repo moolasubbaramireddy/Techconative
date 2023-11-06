@@ -57,5 +57,26 @@ public class TaskControllerIntegrationTest {
 	public void testDeleteTask() throws Exception {
 		mockMvc.perform(delete("/tasks/1"))
 				.andExpect(status().isNoContent());
+
+		// Verify that the task has been deleted from the database
+		mockMvc.perform(get("/tasks/1"))
+				.andExpect(status().isNotFound());
+	}
+
+
+	@Test
+	public void testGetIncompleteTasks() throws Exception {
+		ResultActions result = mockMvc.perform(get("/tasks/incomplete"))
+				.andExpect(status().isOk());
+
+		result.andExpect(jsonPath("$", hasSize(1)));
+	}
+
+	@Test
+	public void testGetCompleteTasks() throws Exception {
+		ResultActions result = mockMvc.perform(get("/tasks/complete"))
+				.andExpect(status().isOk());
+
+		result.andExpect(jsonPath("$", hasSize(1)));
 	}
 }

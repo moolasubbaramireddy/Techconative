@@ -31,4 +31,14 @@ public class TaskService {
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
     }
+
+    public List<Task> getIncompleteTasks() {
+        return taskRepository.findByCompleted(false);
+    }
+
+    public List<Task> getCompleteTasks() {
+        return taskRepository.findByCompleted(true);
+    }
+
+
 }
